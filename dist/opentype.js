@@ -5528,7 +5528,9 @@ function parseLookupTable(data, start) {
     if (lookupType === 2) {
         var subtables = [];
         for (var i = 0; i < subTableCount; i++) {
-            subtables.push(parsePairPosSubTable(data, start + subTableOffsets[i]));
+            var subtable = parsePairPosSubTable(data, start + subTableOffsets[i]);
+			if (subtable == null) continue;
+			subtables.push(subtable);
         }
         // Return a function which finds the kerning values in the subtables.
         table.getKerningValue = function(leftGlyph, rightGlyph) {
